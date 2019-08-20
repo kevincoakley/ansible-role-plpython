@@ -1,0 +1,44 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+
+  vars:
+    - postgres_major_version: 11
+    - postgres_listen_addresses: "*"
+    - postgres_client_auth:
+        - type: host
+          database: all
+          user: all
+          address: 0.0.0.0/0
+          method: md5
+
+  roles:
+    - role: kevincoakley.ansible_role_postgres
+    - role: ansible-role-plpython
+
+  post_tasks:
+    - name: Test if the plpython extensions have been enabled
+      shell: psql -c "SELECT * FROM pg_extension;"
+      args:
+        executable: /bin/bash
+      register: postgresql_plugin_list
+      become: true
+      become_user: postgres
+      become_method: sudo
+      changed_when: false
+      failed_when:
+        - plpython_extension_name[2] not in postgresql_plugin_list.stdout
+
+    - name: Test if the plpython3 extensions have been enabled
+      shell: psql -c "SELECT * FROM pg_extension;"
+      args:
+        executable: /bin/bash
+      register: postgresql_plugin_list
+      become: true
+      become_user: postgres
+      become_method: sudo
+      changed_when: false
+      failed_when:
+        - plpython_extension_name[3] not in postgresql_plugin_list.stdout
+        - ansible_os_family == 'Debian'

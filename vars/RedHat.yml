@@ -1,0 +1,6 @@
+---
+plpython_packages:
+  11:
+    - postgresql11-plpython
+  10:
+    - postgresql10-plpython

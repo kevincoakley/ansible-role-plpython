@@ -1,2 +1,47 @@
 ---
-# tasks file for ansible-role-plpython
+- name: Include OS family specific variables
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- name: Include OS specific tasks
+  include_tasks: "{{ ansible_os_family }}.yml"
+
+- name: Install packages
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ plpython_packages[postgres_major_version] }}"
+
+- name: Get a list of postgresql extension
+  shell: psql -c "SELECT * FROM pg_extension;"
+  args:
+    executable: /bin/bash
+  register: postgresql_plugin_list
+  become: true
+  become_user: postgres
+  become_method: sudo
+  changed_when: false
+
+- name: Enable the plpython extension
+  shell: "psql -c \"CREATE EXTENSION {{ plpython_extension_name[2] }};\""
+  args:
+    executable: /bin/bash
+  register: enable_plpython
+  become: true
+  become_user: postgres
+  become_method: sudo
+  failed_when: '"CREATE EXTENSION" not in enable_plpython.stdout'
+  when:
+    - plpython_extension_name[2] not in postgresql_plugin_list.stdout
+
+- name: Enable the plpython3 extension
+  shell: "psql -c \"CREATE EXTENSION {{ plpython_extension_name[3] }};\""
+  args:
+    executable: /bin/bash
+  register: enable_plpython
+  become: true
+  become_user: postgres
+  become_method: sudo
+  failed_when: '"CREATE EXTENSION" not in enable_plpython.stdout'
+  when:
+    - plpython_extension_name[3] not in postgresql_plugin_list.stdout
+    - ansible_os_family == 'Debian'

@@ -1,2 +1,10 @@
 ---
-# defaults file for ansible-role-plpython
+# Supported Java Versions:
+# CentOS 7: 10, or 11
+# Ubuntu 18.04: 10 or 11
+postgres_major_version: 11
+
+# Do not change below
+plpython_extension_name:
+  2: plpythonu
+  3: plpython3u
