@@ -1,5 +1,6 @@
 ---
 galaxy_info:
+  role_name: plpython
   author: Kevin Coakley
   description: Install the plython extenstion for PostgreSQL
 
