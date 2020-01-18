@@ -44,4 +44,4 @@
   failed_when: '"CREATE EXTENSION" not in enable_plpython.stdout'
   when:
     - plpython_extension_name[3] not in postgresql_plugin_list.stdout
-    - ansible_os_family == 'Debian'
+    - ansible_os_family == 'Debian' or ( ansible_os_family == 'RedHat' and ansible_distribution_major_version == "8" )

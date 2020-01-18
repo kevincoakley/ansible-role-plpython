@@ -1,2 +1,2 @@
 ---
-- src: kevincoakley.ansible_role_postgres
+- src: kevincoakley.postgres

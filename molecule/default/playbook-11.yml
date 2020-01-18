@@ -14,7 +14,7 @@
           method: md5
 
   roles:
-    - role: kevincoakley.ansible_role_postgres
+    - role: kevincoakley.kevincoakley.postgres
     - role: ansible-role-plpython
 
   post_tasks:
@@ -41,4 +41,4 @@
       changed_when: false
       failed_when:
         - plpython_extension_name[3] not in postgresql_plugin_list.stdout
-        - ansible_os_family == 'Debian'
+        - ansible_os_family == 'Debian' or ( ansible_os_family == 'RedHat' and ansible_distribution_major_version == "8" )
