@@ -14,7 +14,7 @@
           method: md5
 
   roles:
-    - role: kevincoakley.kevincoakley.postgres
+    - role: kevincoakley.postgres
     - role: ansible-role-plpython
 
   post_tasks:
