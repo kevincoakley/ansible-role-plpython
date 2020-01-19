@@ -29,6 +29,8 @@
       changed_when: false
       failed_when:
         - plpython_extension_name[2] not in postgresql_plugin_list.stdout
+      when:
+        - ansible_os_family == 'RedHat' or ansible_os_family == 'Debian' and ( postgres_major_version == "10" or postgres_major_version == "11" )
 
     - name: Test if the plpython3 extensions have been enabled
       shell: psql -c "SELECT * FROM pg_extension;"
@@ -41,4 +43,5 @@
       changed_when: false
       failed_when:
         - plpython_extension_name[3] not in postgresql_plugin_list.stdout
+      when:
         - ansible_os_family == 'Debian' or ( ansible_os_family == 'RedHat' and ansible_distribution_major_version == "8" )

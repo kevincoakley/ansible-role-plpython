@@ -32,6 +32,7 @@
   failed_when: '"CREATE EXTENSION" not in enable_plpython.stdout'
   when:
     - plpython_extension_name[2] not in postgresql_plugin_list.stdout
+    - ansible_os_family == 'RedHat' or ansible_os_family == 'Debian' and ( postgres_major_version == "10" or postgres_major_version == "11" )
 
 - name: Enable the plpython3 extension
   shell: "psql -c \"CREATE EXTENSION {{ plpython_extension_name[3] }};\""
