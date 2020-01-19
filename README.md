@@ -1,8 +1,8 @@
 ansible-role-plpython
 =====================
-[![Build Status](https://travis-ci.org/kevincoakley/ansible-role-plpython.svg?branch=master)](https://travis-ci.org/kevincoakley/ansible-role-plpython)
+![](https://github.com/kevincoakley/ansible-role-plpython/workflows/Molecule%20Test/badge.svg)
 
-Installs and enables plpython for PostgreSQL 10 and 11. Tested with plpython on CentOS and Ubuntu 18.04 and plpython3 on Ubuntu 18.04. 
+Installs and enables plpython for PostgreSQL 10, 11 and 12. Tested with plpython on CentOS 7, 8 and Ubuntu 18.04. 
 
 Requirements
 ------------
@@ -17,7 +17,7 @@ See defaults/main.yml and the example inventory below
 Dependencies
 ------------
 
-PostgreSQL 10 or 11 installed. kevincoakley.ansible_role_postgres can be used.
+PostgreSQL 10, 11 or 12 installed. kevincoakley.postgres can be used.
 
 Example Playbook
 ----------------

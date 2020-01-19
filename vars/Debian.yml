@@ -1,5 +1,7 @@
 ---
 plpython_packages:
+  12:
+    - postgresql-plpython3-12
   11:
     - postgresql-plpython-11
     - postgresql-plpython3-11
